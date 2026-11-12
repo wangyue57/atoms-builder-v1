@@ -1,0 +1,51 @@
+{
+  "name": "atoms-builder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web",
+    "apps/platform-server"
+  ],
+  "scripts": {
+    "setup": "node scripts/database.mjs setup",
+    "db:up": "node scripts/database.mjs up",
+    "db:down": "node scripts/database.mjs down",
+    "db:test:init": "node scripts/database.mjs test-init",
+    "db:migrate": "node scripts/application.mjs migrate",
+    "dev": "npm run db:up && npm run build:backend && node scripts/application.mjs dev",
+    "start": "node scripts/application.mjs start",
+    "build:backend": "npm run build --prefix packages/domain && npm run build --prefix packages/contracts && npm run build --prefix packages/workspace && npm run build --prefix packages/model-gateway && npm run build --prefix packages/agent-runtime && npm run build --prefix packages/persistence && npm run build --prefix apps/platform-server",
+    "build:web": "npm run build --workspace @atoms-builder/web",
+    "check:web": "npm run typecheck --workspace @atoms-builder/web && npm run lint --workspace @atoms-builder/web && npm run format:check --workspace @atoms-builder/web",
+    "test:model": "npm test --prefix packages/model-gateway",
+    "test:web": "npm test --workspace @atoms-builder/web",
+    "test:e2e": "node scripts/test-database.mjs npx playwright test",
+    "test:restart": "node scripts/test-database.mjs node tests/application-restart.mjs",
+    "verify": "npm run db:up && npm run db:test:init && npm run build && npm run check:web && npm run test:web && npm run test:contract && npm run test:model && npm run test:local && npm run test:deploy-config && npm run test:e2e && npm run test:restart",
+    "build:local": "npm run build:backend && npm run build:web",
+    "test:local": "node scripts/test-database.mjs npm test --workspace @atoms-builder/platform-server",
+    "build": "npm run build:local && npm run typecheck",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "npm run test:contract",
+    "test:contract": "npm run build --prefix packages/domain && npm run build --prefix packages/contracts && tsx --test tests/contract/*.test.ts",
+    "test:deploy-config": "npm test --prefix deploy",
+    "test:evals": "npm test --prefix evals",
+    "test:all": "npm run test:contract && npm run test:evals && npm run test:deploy-config && npm run test --prefix packages/workspace && npm run test --prefix packages/model-gateway && npm run test --prefix packages/agent-runtime"
+  },
+  "dependencies": {
+    "pg": "^8.16.3",
+    "@atoms-builder/agent-runtime": "file:packages/agent-runtime",
+    "@atoms-builder/contracts": "file:packages/contracts",
+    "@atoms-builder/domain": "file:packages/domain",
+    "@atoms-builder/model-gateway": "file:packages/model-gateway",
+    "@atoms-builder/persistence": "file:packages/persistence",
+    "@atoms-builder/workspace": "file:packages/workspace"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,16 @@
+**/node_modules
+**/dist
+**/coverage
+**/.cache
+**/*.tsbuildinfo
+.git
+.env
+.env.*
+!.env.example
+.npm
+.dsh
+test-results
+playwright-report
+logs
+.tmp
+tmp

@@ -1,0 +1,30 @@
+{
+  "name": "@atoms-builder/platform-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch --exclude '**/node_modules/**' --exclude '../web/**' src/dev.ts",
+    "dev:worker": "tsx watch --exclude '**/node_modules/**' --exclude '../web/**' src/worker.ts",
+    "test": "npm run build && tsx --test test/*.test.ts",
+    "start": "node dist/main.js",
+    "start:api": "node dist/main.js",
+    "start:worker": "node dist/worker.js",
+    "db:migrate": "node dist/migrate.js"
+  },
+  "dependencies": {
+    "@atoms-builder/agent-runtime": "file:../../packages/agent-runtime",
+    "@atoms-builder/contracts": "file:../../packages/contracts",
+    "@atoms-builder/model-gateway": "file:../../packages/model-gateway",
+    "@atoms-builder/persistence": "file:../../packages/persistence",
+    "@atoms-builder/workspace": "file:../../packages/workspace",
+    "parse5": "^8.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^7.2.0"
+  }
+}

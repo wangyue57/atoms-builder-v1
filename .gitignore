@@ -1,0 +1,66 @@
+# Dependencies and package-manager caches (keep lockfiles tracked)
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/install-state.gz
+.pnp.*
+
+# Build output and compiler caches
+dist/
+build/
+.next/
+out/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Local environment and secrets (keep sanitized templates tracked)
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.*.sample
+.envrc
+
+# Test coverage and generated browser reports
+coverage/
+.nyc_output/
+playwright-report/
+playwright/.cache/
+playwright/.auth/
+test-results/
+blob-report/
+
+# Runtime logs and temporary files
+logs/
+*.log
+*.pid
+*.pid.lock
+*.stackdump
+.tmp/
+.temp/
+tmp/
+
+# Local deployment overrides
+docker-compose.override.yml
+docker-compose.override.yaml
+compose.override.yml
+compose.override.yaml
+
+# OS and editor-generated files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.swp
+*.swo
+*~

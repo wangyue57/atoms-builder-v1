@@ -1,0 +1,245 @@
+.preview-frame-host {
+  width: 100%;
+  height: 100%;
+}
+.preview-frame-host:empty {
+  display: none;
+}
+.preview-frame-host iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+.preview-dialog {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  color: #202838;
+  background: #fff;
+}
+.preview-dialog::backdrop {
+  background: #20283880;
+}
+.fullscreen-content {
+  height: calc(100dvh - 60px);
+}
+body.preview-open {
+  overflow: hidden;
+}
+.artifact-toolbar {
+  padding: 8px 14px;
+  min-height: 58px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #e8ecf2;
+}
+.artifact-tabs.MuiTabs-root {
+  min-height: 36px;
+  flex-shrink: 0;
+}
+.artifact-tabs .MuiTabs-indicator {
+  display: none;
+}
+.artifact-tabs .MuiTabs-flexContainer {
+  gap: 4px;
+}
+.artifact-tabs .MuiTab-root {
+  min-height: 36px;
+  min-width: 78px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.artifact-tabs .MuiTab-root.Mui-selected {
+  background: #edf2ff;
+}
+.artifact-tabs .MuiSvgIcon-root {
+  font-size: 17px;
+}
+.artifact-panel {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.artifact-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #e8ecf2;
+  flex-shrink: 0;
+}
+.incoming-version {
+  padding: 4px 14px;
+  background: #fff8e8;
+  border-bottom: 1px solid #f1e6ca;
+  flex-shrink: 0;
+}
+.source-editor {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  background: #fff;
+}
+.source-files {
+  width: 170px;
+  flex-shrink: 0;
+  padding: 18px 10px;
+  border-right: 1px solid #e8ecf2;
+  background: #fafbfe;
+}
+.source-files > .MuiTypography-caption {
+  padding-inline: 8px;
+}
+.source-folder.MuiTypography-root {
+  margin: 20px 8px 10px;
+  font-size: 12px;
+}
+.source-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #eaf0ff;
+  color: #4168ed;
+  font-size: 12px;
+}
+.source-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.source-toolbar {
+  min-height: 44px;
+  padding: 4px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #e8ecf2;
+}
+.source-toolbar .MuiButton-root {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.source-codemirror {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.source-codemirror .cm-editor {
+  height: 100%;
+  font-size: 13px;
+  color: #243754;
+}
+.source-codemirror .cm-scroller {
+  overflow: auto;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  line-height: 1.9;
+  scrollbar-width: thin;
+}
+.source-codemirror .cm-content {
+  padding-block: 16px;
+}
+.source-codemirror .cm-line {
+  padding-inline: 12px;
+}
+.source-codemirror .cm-gutters {
+  background: #fafbfe;
+  color: #9aa7bd;
+  border-right: 1px solid #edf0f6;
+}
+.source-codemirror .cm-activeLine,
+.source-codemirror .cm-activeLineGutter {
+  background: #edf3ff;
+}
+.source-codemirror .cm-editor.cm-focused {
+  outline: 2px solid #91a8f6;
+  outline-offset: -2px;
+}
+.source-codemirror .cm-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 30px 10px 10px;
+  font-size: 11px;
+  background: #f5f8ff;
+}
+.source-codemirror .cm-search label {
+  white-space: nowrap;
+}
+.source-codemirror .cm-textfield {
+  width: 150px;
+  max-width: 100%;
+  border: 1px solid #dce4f4;
+  border-radius: 4px;
+  background: #fff;
+  padding: 5px 7px;
+}
+.source-codemirror .cm-button {
+  border: 1px solid #dce4f4;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 11px;
+  padding: 4px 7px;
+}
+.source-keyboard-hint.MuiTypography-root {
+  padding: 5px 14px;
+  border-top: 1px solid #edf0f6;
+  color: #8591a6;
+  font-size: 10px;
+}
+.source-statusbar {
+  padding: 7px 14px;
+  font-size: 10px;
+  color: #7b879c;
+  background: #fafbfe;
+  border-top: 1px solid #e8ecf2;
+  flex-shrink: 0;
+}
+@media (max-width: 1199px) {
+  .source-files {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  .artifact-toolbar {
+    padding: 8px;
+  }
+  .artifact-tabs .MuiTab-root {
+    min-width: 68px;
+    padding-inline: 8px;
+  }
+  .source-toolbar {
+    padding-inline: 8px;
+    gap: 4px;
+  }
+  .source-toolbar > .MuiSvgIcon-root {
+    display: none;
+  }
+  .source-toolbar > .MuiTypography-root {
+    font-size: 10px;
+  }
+  .source-toolbar {
+    flex-wrap: wrap;
+  }
+  .source-editor-actions {
+    order: 3;
+    width: 100%;
+    justify-content: flex-end;
+    border-top: 1px solid #edf0f6;
+    padding-top: 2px;
+  }
+  .source-codemirror .cm-editor {
+    font-size: 12px;
+  }
+  .artifact-footer {
+    padding: 8px 10px;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@atoms-builder/deploy-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

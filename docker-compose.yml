@@ -1,0 +1,88 @@
+name: atoms-builder
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: atoms_admin
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:?Run npm run setup first}
+      POSTGRES_DB: ${POSTGRES_DB:-atoms}
+      APP_DB_USER: ${POSTGRES_USER:-atoms}
+      APP_DB_PASSWORD: ${POSTGRES_PASSWORD:?Run npm run setup first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-54329}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./deploy/postgres/init.sh:/docker-entrypoint-initdb.d/10-application.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atoms_admin -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+    networks: [database]
+
+  api:
+    image: ${APP_IMAGE:-atoms-builder:local}
+    build: .
+    restart: unless-stopped
+    command: ["node", "apps/platform-server/dist/main.js"]
+    environment: &application-environment
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 8787
+      DATABASE_URL: postgresql://${POSTGRES_USER:-atoms}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-atoms}
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8787}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      DSKEY: ${DSKEY:-}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-flash}
+      DEEPSEEK_ENDPOINT: ${DEEPSEEK_ENDPOINT:-https://api.deepseek.com/chat/completions}
+      MODEL_TIMEOUT_MS: ${MODEL_TIMEOUT_MS:-120000}
+    ports:
+      - "127.0.0.1:${APP_PORT:-8787}:8787"
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [database, egress]
+
+  worker:
+    image: ${APP_IMAGE:-atoms-builder:local}
+    pull_policy: never
+    restart: unless-stopped
+    command: ["node", "apps/platform-server/dist/worker.js"]
+    environment: *application-environment
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [database, egress]
+
+  caddy:
+    image: caddy:2.9-alpine
+    profiles: [https]
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:-localhost}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [egress]
+
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  database:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+  egress:
+    driver: bridge

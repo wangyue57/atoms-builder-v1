@@ -1,0 +1,33 @@
+name: Web quality
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CI: true
+      PLAYWRIGHT_CHANNEL: chromium
+      DSKEY: ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run setup
+      - run: npm run verify
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: web-browser-evidence
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
