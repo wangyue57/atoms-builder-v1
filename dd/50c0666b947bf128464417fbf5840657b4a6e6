@@ -1,0 +1,23 @@
+apps/web/src/components/ConversationPanel.tsx
+  s_1e5761686039b7::t_84c238ebefa02f 1-108
+apps/web/src/pages/TaskPage.tsx
+  s_1e5761686039b7::t_d121504194c84b 3,9,85,88
+apps/web/src/styles/global.css
+  s_1e5761686039b7::t_7c39e980586fef 133,138,140-189,246-247,277
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd50c0666b947bf128464417fbf5840657b4a6e6",
+  "prompts": {},
+  "sessions": {
+    "s_1e5761686039b7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1cf69-e1e7-7b53-87a4-5bd1e467bfc9",
+        "model": "unknown"
+      },
+      "human_author": "wangyue <yue14.wang@ly.com>"
+    }
+  }
+}
