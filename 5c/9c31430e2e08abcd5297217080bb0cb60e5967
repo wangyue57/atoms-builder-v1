@@ -1,0 +1,27 @@
+docs/DEPLOYMENT-SINGLE-CVM.md
+  s_0555ccdf90fbe5::t_f9249061ece0e5 3,5,7,9,11,13-15,28
+docs/INTEGRATION-STATUS.md
+  s_0555ccdf90fbe5::t_bead9f6132243e 5-19
+docs/STATUS.md
+  s_0555ccdf90fbe5::t_b625a22f0ec8b1 3,11,27
+docs/TASK-BOARD.md
+  s_0555ccdf90fbe5::t_7a901fadad944b 9,27
+docs/project-manual/06-development-and-operations.md
+  s_0555ccdf90fbe5::t_40a109f268bab9 138-139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c9c31430e2e08abcd5297217080bb0cb60e5967",
+  "prompts": {},
+  "sessions": {
+    "s_0555ccdf90fbe5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ce58-ed71-7c81-bde6-eb4a4af09083",
+        "model": "unknown"
+      },
+      "human_author": "wangyue <yue14.wang@ly.com>"
+    }
+  }
+}
